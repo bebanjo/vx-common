@@ -27,5 +27,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "rr"
   spec.add_development_dependency "rake"
 
-  spec.add_development_dependency "vx-message"
+  spec.add_development_dependency "vx-message", '0.2.1'
 end
