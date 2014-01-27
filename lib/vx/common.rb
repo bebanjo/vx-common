@@ -11,10 +11,7 @@ module Vx
     autoload :OutputBuffer,  File.expand_path("../common/output_buffer",      __FILE__)
     autoload :EnvFile,       File.expand_path("../common/env_file",           __FILE__)
     autoload :ErrorNotifier, File.expand_path("../common/error_notifier",     __FILE__)
-  end
-
-  module SCM
-    autoload :Git, File.expand_path("../scm/git", __FILE__)
+    autoload :Git,           File.expand_path("../common/git",                __FILE__)
   end
 
 end
