@@ -36,7 +36,7 @@ module Vx
 
         if pull_request_id
           clone_branch = ""
-          fetch_cmd = "git fetch origin +refs/pull/#{pull_request_id}/merge:"
+          fetch_cmd = "git fetch origin +refs/pull/#{pull_request_id}/head"
           checkout_cmd = "git checkout -q FETCH_HEAD"
         end
 
