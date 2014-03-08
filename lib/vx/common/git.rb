@@ -40,11 +40,13 @@ module Vx
           checkout_cmd = "git checkout -q FETCH_HEAD"
         end
 
+        fetch_origin_cmd = "cd #{path} && git clean -q -d -x -f && git fetch -q origin && git fetch --tags -q origin && git reset -q --hard #{sha}"
         clone_cmd = "git clone --depth=#{depth}#{clone_branch} #{src} #{path}"
+        sync_repo_cmd = "if [ -d #{path}/.git ]; then #{fetch_origin_cmd}; else #{clone_cmd}; fi"
 
         cmd = []
-        cmd << %{ echo "$ #{clone_cmd}" }
-        cmd << clone_cmd
+        cmd << %{ echo "$ #{sync_repo_cmd}" }
+        cmd << sync_repo_cmd
         if fetch_cmd
           cmd << %{ echo "$ #{fetch_cmd}" }
           cmd << %{ ( cd #{path} && #{fetch_cmd} ) }
