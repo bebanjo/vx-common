@@ -21,7 +21,7 @@ module Vx
       def git_ssh_content(key_location)
         key = key_location ? "-i #{key_location}" : ""
         out = "#!/bin/sh\n"
-        out << "/usr/bin/ssh"
+        out << "exec /usr/bin/ssh"
         out << " -A -o LogLevel=quiet"
         out << " -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null"
         out << " #{key} $@\n"
