@@ -1,9 +1,11 @@
 require 'ostruct'
+require 'shellwords' # To trace_sh_command
 
 module Vx
   module Common
 
     class Git
+      include Helper::TraceShCommand
 
       COMMIT_RE = /^(.*) -:- (.*) \((.*)\) -:- (.*)$/
 
@@ -43,18 +45,15 @@ module Vx
         clone_cmd = "git clone --depth=#{depth}#{clone_branch} #{src} #{path}"
 
         cmd = []
-        cmd << %{ echo "$ #{clone_cmd}" }
-        cmd << clone_cmd
+        cmd << trace_sh_command(clone_cmd, {fold: "git.1", timing: true, retry: true, assert: true})
+        cmd << %{ cd #{path} }
         if fetch_cmd
-          cmd << %{ echo "$ #{fetch_cmd}" }
-          cmd << %{ ( cd #{path} && #{fetch_cmd} ) }
+          cmd << trace_sh_command(fetch_cmd, {fold: "git.2", timing: true, retry: true, assert: true})
         end
-        cmd << %{ echo "$ #{checkout_cmd}" }
-        cmd << %{ ( cd #{path} && #{checkout_cmd} ) }
+        cmd << trace_sh_command(checkout_cmd, {fold: "git.3", timing: true, assert: true})
 
         cmd.join("\n")
       end
-
     end
 
   end

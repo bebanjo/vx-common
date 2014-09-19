@@ -5,6 +5,7 @@ module Vx
     module Helper
       autoload :Shell,           File.expand_path("../common/helper/shell",             __FILE__)
       autoload :Middlewares,     File.expand_path("../common/helper/middlewares",       __FILE__)
+      autoload :TraceShCommand,  File.expand_path("../common/helper/trace_sh_command",  __FILE__)
       autoload :UploadShCommand, File.expand_path("../common/helper/upload_sh_command", __FILE__)
     end
 
