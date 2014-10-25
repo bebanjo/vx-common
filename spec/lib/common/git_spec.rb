@@ -1,14 +1,12 @@
 require 'spec_helper'
 require 'tmpdir'
-require 'vx/message/testing'
 require 'vx/common/spawn'
 
 describe Vx::Common::Git do
   let(:path)       { Dir.tmpdir }
-  let(:message)    { Vx::Message::PerformBuild.test_message }
-  let(:src)        { message.src }
-  let(:sha)        { message.sha }
-  let(:deploy_key) { message.deploy_key }
+  let(:src)        { "git@github.com:vexor/vx-test-repo.git" }
+  let(:sha)        { "43048129a832a055dbd293a27de343a162609159" }
+  let(:deploy_key) { File.read File.expand_path("../../../fixtures/insecure_private_key", __FILE__) }
   let(:output)     { "" }
   let(:options)    { {} }
   let(:git)        {
@@ -87,7 +85,7 @@ describe Vx::Common::Git do
 
     context "fail" do
       context "when repo does not exists" do
-        let(:src) { "/not-exists-repo.git"  }
+        let(:src) { "git@github.com:vexor/not-exists-repo.git"  }
         it "should return non zero status" do
           expect(run).to_not eq 0
         end
