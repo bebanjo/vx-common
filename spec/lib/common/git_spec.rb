@@ -23,7 +23,7 @@ describe Vx::Common::Git do
     end
   end
 
-  after { FileUtils.rm_rf path }
+  after { FileUtils.rm_rf "#{path}/repo" }
 
   context "just created" do
     its(:src)    { should eq src }
